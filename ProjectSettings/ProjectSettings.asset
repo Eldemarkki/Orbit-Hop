@@ -625,10 +625,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: fa50da73-a440-4bc6-968c-6ad5abb30797
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: OrbitHop
+  organizationId: eldemarkki
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

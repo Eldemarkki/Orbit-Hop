@@ -90,4 +90,18 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    public void Restart()
+    {
+        rotationPoint = Vector2.zero;
+        isRotating = false;
+        canRotate = true;
+        hasTouchedFirstPole = false;
+        
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0;
+        rb.gravityScale = 1;
+
+        transform.rotation = Quaternion.identity;
+    }
 }

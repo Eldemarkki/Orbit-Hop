@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,9 +10,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject polePrefab;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private CameraController cameraController;
+    [SerializeField] private PlayerController player;
 
     [SerializeField, ColorUsage(false, true)] private Color passedPoleColor;
     [SerializeField, ColorUsage(false, true)] private Color nextPoleColor;
+
+    [SerializeField] private AudioClip scoreSoundEffect;
+    [SerializeField] private AudioClip gameOverSoundEffect;
+    [SerializeField] private AudioSource soundEffectSource;
 
     private Camera cam;
 
@@ -71,7 +75,22 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerDied()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        soundEffectSource.PlayOneShot(gameOverSoundEffect);
+        Restart();
+    }
+
+    private void Restart()
+    {
+        player.transform.position = Vector2.zero;
+        Score = 0;
+        foreach (var pole in poles)
+        {
+            if(pole) Destroy(pole.gameObject);
+        }
+
+        player.Restart();
+
+        Awake();
     }
 
     private float GetLastX()
@@ -105,6 +124,8 @@ public class GameManager : MonoBehaviour
             nextPole.SetColor(nextPoleColor);
 
             cameraController.UpdateCenter(currentPole.transform.position, nextPole.transform.position);
+
+            soundEffectSource.PlayOneShot(scoreSoundEffect);
 
             CreatePole();
 
